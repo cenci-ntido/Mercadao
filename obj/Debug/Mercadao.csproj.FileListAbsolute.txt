@@ -1,0 +1,16 @@
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\bin\Debug\Mercadao.exe.config
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\bin\Debug\Mercadao.exe
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\bin\Debug\Mercadao.pdb
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.csproj.AssemblyReference.cache
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.csproj.SuggestedBindingRedirects.cache
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.Properties.Resources.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.csproj.GenerateResource.cache
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.csproj.CoreCompileInputs.cache
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.exe
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.pdb
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormPDV.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormMenu.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormUsuarios.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormSobre.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormProdutos.resources
+G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.Login.resources
