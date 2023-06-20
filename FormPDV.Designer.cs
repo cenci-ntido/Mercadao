@@ -41,10 +41,10 @@ namespace Mercadao
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel2.SuspendLayout();
@@ -168,6 +168,28 @@ namespace Mercadao
             this.panel2.Size = new System.Drawing.Size(1366, 51);
             this.panel2.TabIndex = 16;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Location = new System.Drawing.Point(496, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 29);
+            this.label4.TabIndex = 2;
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.Location = new System.Drawing.Point(168, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 29);
+            this.label3.TabIndex = 1;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -191,28 +213,6 @@ namespace Mercadao
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(701, 665);
             this.textBox1.TabIndex = 17;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(168, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 29);
-            this.label3.TabIndex = 1;
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(550, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 29);
-            this.label4.TabIndex = 2;
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormPDV
             // 

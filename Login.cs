@@ -14,42 +14,47 @@ namespace Mercadao
 {
     public partial class Login : Form
     {
-        public bool habilita;
-        public Login(bool habilita)
+        public bool naoLogado = true;
+        public String usuario;
+        public Login(bool naoLogado)
         {
             InitializeComponent();
-            habilita = true;
+            naoLogado = true;
+            textBox1.Focus();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             String login = textBox1.Text;
             String senha = textBox2.Text;
-            if (login.Equals("")|| senha.Equals(""))
+            if (login.Equals("") || senha.Equals(""))
             {
                 MessageBox.Show("Preencha todos os dados!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            string query = "SELECT 1 FROM usuarios WHERE login = '" + login + "' and senha = '" + senha +"'";
-
-            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            else
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
+                string query = "SELECT login FROM usuarios WHERE login = '" + login + "' and senha = '" + senha + "'";
 
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
                 {
-                    habilita = false;
-                    this.Dispose();
-                }
-                else
-                {
-                    MessageBox.Show("Usuário ou senha incorretos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
 
-                reader.Close();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        naoLogado = false;
+                        usuario = reader["login"].ToString();
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuário ou senha incorretos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    reader.Close();
+                }
             }
 
         }
