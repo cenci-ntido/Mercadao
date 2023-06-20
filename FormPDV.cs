@@ -82,6 +82,13 @@ namespace Mercadao
                 numericUpDown2.Focus();
                 e.Handled = true;
             }
+
+            if (e.KeyCode == Keys.F8)
+            {
+                var form = new FormMenu();
+                form.Show();
+                e.Handled = true;
+            }
         }
     }
 }
