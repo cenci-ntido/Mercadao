@@ -3,25 +3,11 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Mercadao
 
 {
-    public struct Produto
-    {
-        public string cod;
-        public string produto;
-        public string qtd;
-        public string valorTot;
-
-        public Produto(string cod, string produto, string qtd, string valorTot)
-        {
-            this.cod = cod;
-            this.produto = produto;
-            this.qtd = qtd;
-            this.valorTot = valorTot;
-        }
-    }
 
     public partial class FormPDV : Form
     {
@@ -30,7 +16,7 @@ namespace Mercadao
         private const int larguraColunaQuantidade = 10;
         private const int larguraColunaTotalItem = 8;
         private double ValorTotal { get; set; }
-        private List<Produto> produtos = new List<Produto>();
+        private List<Produto> produtos { get; set; } = new List<Produto>();
 
         public FormPDV()
         {
@@ -134,10 +120,21 @@ namespace Mercadao
                 string nome = textBox6.Text;
                 string quantidade = qtdProduto.ToString();
                 string totalItem = textBox4.Text;
-                Produto product = new Produto(codigo, nome, quantidade, totalItem);
-                produtos.Add(product);
-                AdicionarProduto(product);
-                AtualizarCupom();
+
+                if (ValidaProdutoJaExiste(codigo))
+                {
+                    Produto prodExiste = RetornaProdutoExistente(codigo);
+                    AtualizaValoresProduto(prodExiste);
+                    AtualizarCupom();
+
+                }
+                else
+                {
+                    Produto product = new Produto(codigo, nome, quantidade, totalItem);
+                    produtos.Add(product);
+                    AtualizarCupom();
+                }
+
                 e.Handled = true;
             }
         }
@@ -187,6 +184,61 @@ namespace Mercadao
             }
 
             AddTotalCupom();
+        }
+
+        private bool ValidaProdutoJaExiste(String codigo)
+        {
+            int index = -1;
+            bool existe = false;
+            for (int i = 0; i < produtos.Count; i++)
+            {
+                if (produtos[i].cod == codigo)
+                {
+                    existe = true;
+                    index = i;
+                    break;
+                }
+                else
+                {
+                    existe = false;
+                }
+            }
+            return existe;
+        }
+
+        private Produto RetornaProdutoExistente(string codigo)
+        {
+            int index = -1;
+
+            for (int i = 0; i < produtos.Count; i++)
+            {
+                if (produtos[i].cod == codigo)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1)
+            {
+                return produtos[index];
+            }
+
+            return null;
+        }
+
+        private void AtualizaValoresProduto(Produto produto)
+        {
+            //Atualiza quantidade
+            double quant = double.Parse(produto.qtd);
+            quant++;
+            produto.qtd = quant.ToString();
+            //Atualiza valor
+            double vlr = double.Parse(produto.valorTot);
+            vlr *= 2;
+            produto.valorTot = vlr.ToString();
+            //Atualizar valor total tela
+            textBox4.Text = vlr.ToString();
         }
     }
 }

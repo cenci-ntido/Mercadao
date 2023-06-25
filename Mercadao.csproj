@@ -91,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MercadoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Produto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMenu.resx">
