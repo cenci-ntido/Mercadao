@@ -206,7 +206,7 @@ namespace Mercadao
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Info;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(665, 52);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
