@@ -30,15 +30,11 @@ namespace Mercadao
         private const int larguraColunaQuantidade = 10;
         private const int larguraColunaTotalItem = 8;
         private double ValorTotal { get; set; }
-        private bool rodapeAdicionado;
         private List<Produto> produtos = new List<Produto>();
-        private StringBuilder cupomFiscalBuilder;
 
         public FormPDV()
         {
             InitializeComponent();
-            rodapeAdicionado = false;
-            cupomFiscalBuilder = new StringBuilder();
         }
 
         private void numericUpDown2_Leave(object sender, EventArgs e)
@@ -141,14 +137,13 @@ namespace Mercadao
                 Produto product = new Produto(codigo, nome, quantidade, totalItem);
                 produtos.Add(product);
                 AdicionarProduto(product);
-                //  AddTotalCupom();
+                AtualizarCupom();
                 e.Handled = true;
             }
         }
 
         private void AdicionarProduto(Produto product)
         {
-
             string item = product.cod.PadRight(larguraColunaCodigo) +
                 product.produto.PadRight(larguraColunaProduto) +
                 product.qtd.PadRight(larguraColunaQuantidade) +
@@ -159,18 +154,6 @@ namespace Mercadao
 
             double valorItem = double.Parse(product.valorTot);
             ValorTotal += valorItem;
-            //     AtualizarRodape();
-        }
-
-        private void AtualizarRodape()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(new string('-', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
-            sb.AppendLine("Total geral".PadRight(larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade) + ValorTotal.ToString("F2"));
-
-            cupomFiscalBuilder.AppendLine(sb.ToString());
-
-            textBox1.Text = cupomFiscalBuilder.ToString();
         }
 
         private void AddTotalCupom()
@@ -179,16 +162,31 @@ namespace Mercadao
             sb.AppendLine(new string('=', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
             sb.AppendLine("Total geral".PadRight(larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade) + ValorTotal.ToString("F2"));
 
-            if (rodapeAdicionado)
+            textBox1.AppendText(sb.ToString());
+        }
+
+        private void AtualizarCupom()
+        {
+            textBox1.Clear();
+
+            string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
+            string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
+                                "Produto".PadRight(larguraColunaProduto) +
+                                "Qtd".PadRight(larguraColunaQuantidade) +
+                                "Total item(R$)".PadRight(larguraColunaTotalItem);
+            string linhaSeparadora = new string('-', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6);
+
+            textBox1.AppendText(cupomFiscal + Environment.NewLine);
+            textBox1.AppendText(linhaSeparadora + Environment.NewLine);
+            textBox1.AppendText(cabecalho + Environment.NewLine);
+            textBox1.AppendText(linhaSeparadora + Environment.NewLine);
+
+            foreach (var product in produtos)
             {
-                int lineCount = textBox1.Lines.Length;
-                textBox1.Lines[lineCount - 1] = sb.ToString().TrimEnd();
+                AdicionarProduto(product);
             }
-            else
-            {
-                textBox1.AppendText(sb.ToString());
-                rodapeAdicionado = true;
-            }
+
+            AddTotalCupom();
         }
     }
 }
