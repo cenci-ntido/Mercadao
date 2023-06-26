@@ -8,13 +8,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Mercadao
 
 {
-
     public partial class FormPDV : Form
     {
         private const int larguraColunaCodigo = 8;
-        private const int larguraColunaProduto = 30;
+        private const int larguraColunaProduto = 23;
+        private const int larguraColunaValor = 7;
         private const int larguraColunaQuantidade = 10;
         private const int larguraColunaTotalItem = 8;
+        private Login formLogin;
+
         private double ValorTotal { get; set; }
         private List<Produto> produtos { get; set; } = new List<Produto>();
 
@@ -73,11 +75,11 @@ namespace Mercadao
                 }
                 else
                 {
-                    var form = new Login(numericUpDown2.ReadOnly);
-                    form.ShowDialog();
-                    if (!form.naoLogado) // logou
+                    formLogin = new Login(numericUpDown2.ReadOnly);
+                    formLogin.ShowDialog();
+                    if (!formLogin.naoLogado) // logou
                     {
-                        label3.Text = "Usuário: " + form.usuario;
+                        label3.Text = "Usuário: " + formLogin.usuario;
                         label4.Text = "<F12> Nova Fita";
                     }
                 }
@@ -92,15 +94,32 @@ namespace Mercadao
                 label4.Text = "<F1> Adiciona <F12> Nova Fita";
                 numericUpDown2.Focus();
                 string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
+                string dados = "Cupom fiscal: 1\tData/Hora: " + DateTime.Now.ToString();
                 string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
                                     "Produto".PadRight(larguraColunaProduto) +
+                                    "Valor".PadRight(larguraColunaValor) +
                                     "Qtd".PadRight(larguraColunaQuantidade) +
                                     "Total item(R$)".PadRight(larguraColunaTotalItem);
-                string linhaSeparadora = new string('-', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6);
+                string linhaSeparadora = new string('-', larguraColunaCodigo + larguraColunaValor + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6);
                 textBox1.AppendText(cupomFiscal + Environment.NewLine);
+                textBox1.AppendText(dados + Environment.NewLine);
                 textBox1.AppendText(linhaSeparadora + Environment.NewLine);
                 textBox1.AppendText(cabecalho + Environment.NewLine);
                 textBox1.AppendText(linhaSeparadora + Environment.NewLine);
+
+                string uId = Pega_uId_UsuarioLogado(formLogin.usuario).ToString();
+                string query = "INSERT INTO [dbo].[CUPONS] ([dtEmissao], [valorTotal], [CPF], [uId]) " +
+                               "VALUES (GETDATE(), @valorTotal, '', @uId)";
+
+                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@valorTotal", ValorTotal);
+                    command.Parameters.AddWithValue("@uId", uId);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
                 e.Handled = true;
             }
 
@@ -118,6 +137,7 @@ namespace Mercadao
                 int qtdProduto = 1;
                 string codigo = numericUpDown2.Value.ToString();
                 string nome = textBox6.Text;
+                string valor = textBox5.Text;
                 string quantidade = qtdProduto.ToString();
                 string totalItem = textBox4.Text;
 
@@ -126,11 +146,10 @@ namespace Mercadao
                     Produto prodExiste = RetornaProdutoExistente(codigo);
                     AtualizaValoresProduto(prodExiste);
                     AtualizarCupom();
-
                 }
                 else
                 {
-                    Produto product = new Produto(codigo, nome, quantidade, totalItem);
+                    Produto product = new Produto(codigo, nome,valor, quantidade, totalItem);
                     produtos.Add(product);
                     AtualizarCupom();
                 }
@@ -143,21 +162,19 @@ namespace Mercadao
         {
             string item = product.cod.PadRight(larguraColunaCodigo) +
                 product.produto.PadRight(larguraColunaProduto) +
+                product.valor.PadRight(larguraColunaValor) +
                 product.qtd.PadRight(larguraColunaQuantidade) +
                 product.valorTot.PadRight(larguraColunaTotalItem) +
                 " +";
 
             textBox1.AppendText(item + Environment.NewLine);
-
-            double valorItem = double.Parse(product.valorTot);
-            ValorTotal += valorItem;
         }
 
         private void AddTotalCupom()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(new string('=', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
-            sb.AppendLine("Total geral".PadRight(larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade) + ValorTotal.ToString("F2"));
+            sb.AppendLine(new string('=', larguraColunaCodigo + larguraColunaValor +larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
+            sb.AppendLine("Total geral".PadRight(larguraColunaCodigo + larguraColunaValor + larguraColunaProduto + larguraColunaQuantidade) + AtualizaValorTotalCupom().ToString("F2"));
 
             textBox1.AppendText(sb.ToString());
         }
@@ -167,13 +184,16 @@ namespace Mercadao
             textBox1.Clear();
 
             string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
+            string dados = "Cupom fiscal: 1\tData/Hora: " + DateTime.Now.ToString();
             string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
                                 "Produto".PadRight(larguraColunaProduto) +
+                                "Valor".PadRight(larguraColunaValor) +
                                 "Qtd".PadRight(larguraColunaQuantidade) +
                                 "Total item(R$)".PadRight(larguraColunaTotalItem);
-            string linhaSeparadora = new string('-', larguraColunaCodigo + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6);
+            string linhaSeparadora = new string('-', larguraColunaCodigo + larguraColunaValor + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6);
 
             textBox1.AppendText(cupomFiscal + Environment.NewLine);
+            textBox1.AppendText(dados + Environment.NewLine);
             textBox1.AppendText(linhaSeparadora + Environment.NewLine);
             textBox1.AppendText(cabecalho + Environment.NewLine);
             textBox1.AppendText(linhaSeparadora + Environment.NewLine);
@@ -240,5 +260,34 @@ namespace Mercadao
             //Atualizar valor total tela
             textBox4.Text = vlr.ToString();
         }
+
+        private double AtualizaValorTotalCupom()
+        {
+            return ValorTotal;
+        }
+
+        private int Pega_uId_UsuarioLogado(string login)
+        {
+            string query = "SELECT UId FROM usuarios WHERE login = @Login";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Login", login);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                int uId = 0;
+
+                if (reader.Read())
+                {
+                    uId = Convert.ToInt32(reader["UId"]);
+                }
+
+                reader.Close();
+                return uId;
+            }
+        }
+
     }
 }
