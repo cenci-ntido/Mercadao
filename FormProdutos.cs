@@ -17,13 +17,6 @@ namespace Mercadao
             InitializeComponent();
         }
 
-        private void iTENSBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.iTENSBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.mercadoDataSet);
-
-        }
 
         private void FormProdutos_Load(object sender, EventArgs e)
         {
@@ -32,5 +25,9 @@ namespace Mercadao
 
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            new FormProdutosCadastro().ShowDialog();
+        }
     }
 }

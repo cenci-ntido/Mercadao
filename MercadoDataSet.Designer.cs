@@ -1237,8 +1237,7 @@ namespace Mercadao {
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnUId}, true));
                 this.columnUId.AutoIncrement = true;
-                this.columnUId.AutoIncrementSeed = -1;
-                this.columnUId.AutoIncrementStep = -1;
+                this.columnUId.AutoIncrementSeed = 1;
                 this.columnUId.AllowDBNull = false;
                 this.columnUId.ReadOnly = true;
                 this.columnUId.Unique = true;
