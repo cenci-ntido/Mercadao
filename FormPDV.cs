@@ -16,6 +16,7 @@ namespace Mercadao
         private const int larguraColunaQuantidade = 10;
         private const int larguraColunaTotalItem = 8;
         private Login formLogin;
+        private int cupomId;
 
         private double ValorTotal { get; set; }
         private List<Produto> produtos { get; set; } = new List<Produto>();
@@ -90,11 +91,25 @@ namespace Mercadao
             // NOVA FITA
             if (e.KeyCode == Keys.F12 && label4.Text.Length > 1)
             {
+                string uId = Pega_uId_UsuarioLogado(formLogin.usuario).ToString();
+                string query = "INSERT INTO [dbo].[CUPONS] ([dtEmissao], [valorTotal], [CPF], [uId]) " +
+                               "VALUES (GETDATE(), @valorTotal, '', @uId); SELECT SCOPE_IDENTITY()";
+
+                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@valorTotal", ValorTotal);
+                    command.Parameters.AddWithValue("@uId", uId);
+
+                    connection.Open();
+                    cupomId = Convert.ToInt32(command.ExecuteScalar());
+                }
+
                 numericUpDown2.ReadOnly = false;
                 label4.Text = "<F1> Adiciona <F12> Nova Fita";
                 numericUpDown2.Focus();
                 string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
-                string dados = "Cupom fiscal: 1\tData/Hora: " + DateTime.Now.ToString();
+                string dados = "Cupom fiscal:" + cupomId.ToString() + "\tData/Hora: " + DateTime.Now.ToString();
                 string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
                                     "Produto".PadRight(larguraColunaProduto) +
                                     "Valor".PadRight(larguraColunaValor) +
@@ -107,19 +122,7 @@ namespace Mercadao
                 textBox1.AppendText(cabecalho + Environment.NewLine);
                 textBox1.AppendText(linhaSeparadora + Environment.NewLine);
 
-                string uId = Pega_uId_UsuarioLogado(formLogin.usuario).ToString();
-                string query = "INSERT INTO [dbo].[CUPONS] ([dtEmissao], [valorTotal], [CPF], [uId]) " +
-                               "VALUES (GETDATE(), @valorTotal, '', @uId)";
 
-                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
-                {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@valorTotal", ValorTotal);
-                    command.Parameters.AddWithValue("@uId", uId);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
                 e.Handled = true;
             }
 
@@ -149,7 +152,7 @@ namespace Mercadao
                 }
                 else
                 {
-                    Produto product = new Produto(codigo, nome,valor, quantidade, totalItem);
+                    Produto product = new Produto(codigo, nome, valor, quantidade, totalItem);
                     produtos.Add(product);
                     AtualizarCupom();
                 }
@@ -168,12 +171,29 @@ namespace Mercadao
                 " +";
 
             textBox1.AppendText(item + Environment.NewLine);
+
+            string query = "INSERT INTO [dbo].[ITENSCUPONS] ([cupomID], [itemID], [qtde], [precoUnit], [totalItem]) " +
+                           "VALUES (@cupomID, @itemID, @qtde, @precoUnit, @totalItem)";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@cupomID", cupomId);
+                command.Parameters.AddWithValue("@itemID", numericUpDown2.Value);
+                command.Parameters.AddWithValue("@qtde", product.qtd);
+                command.Parameters.AddWithValue("@precoUnit", product.valor);
+                command.Parameters.AddWithValue("@totalItem", product.valorTot);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
         }
 
         private void AddTotalCupom()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(new string('=', larguraColunaCodigo + larguraColunaValor +larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
+            sb.AppendLine(new string('=', larguraColunaCodigo + larguraColunaValor + larguraColunaProduto + larguraColunaQuantidade + larguraColunaTotalItem + 6));
             sb.AppendLine("Total geral".PadRight(larguraColunaCodigo + larguraColunaValor + larguraColunaProduto + larguraColunaQuantidade) + AtualizaValorTotalCupom().ToString("F2"));
 
             textBox1.AppendText(sb.ToString());
@@ -184,7 +204,7 @@ namespace Mercadao
             textBox1.Clear();
 
             string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
-            string dados = "Cupom fiscal: 1\tData/Hora: " + DateTime.Now.ToString();
+            string dados = "Cupom fiscal:"+cupomId +"\tData/Hora: " + DateTime.Now.ToString();
             string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
                                 "Produto".PadRight(larguraColunaProduto) +
                                 "Valor".PadRight(larguraColunaValor) +
