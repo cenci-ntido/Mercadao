@@ -62,6 +62,8 @@ namespace Mercadao
 
                     reader.Close();
                 }
+
+                numericUpDown2.Focus();
             }
         }
 
@@ -100,7 +102,6 @@ namespace Mercadao
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@valorTotal", ValorTotal);
                     command.Parameters.AddWithValue("@uId", uId);
-
                     connection.Open();
                     cupomId = Convert.ToInt32(command.ExecuteScalar());
                 }
@@ -181,9 +182,8 @@ namespace Mercadao
                 command.Parameters.AddWithValue("@cupomID", cupomId);
                 command.Parameters.AddWithValue("@itemID", numericUpDown2.Value);
                 command.Parameters.AddWithValue("@qtde", product.qtd);
-                command.Parameters.AddWithValue("@precoUnit", product.valor);
-                command.Parameters.AddWithValue("@totalItem", product.valorTot);
-
+                command.Parameters.AddWithValue("@precoUnit", double.Parse(product.valor));
+                command.Parameters.AddWithValue("@totalItem", double.Parse(product.valorTot));
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -269,20 +269,60 @@ namespace Mercadao
 
         private void AtualizaValoresProduto(Produto produto)
         {
+            //Deletar registro antigo
+            string query = "DELETE FROM ITENSCUPONS WHERE cupomID = @cupomID and itemID = @itemID";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@cupomID", cupomId);
+                command.Parameters.AddWithValue("@itemID", int.Parse(produto.cod));
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                reader.Close();
+            }
             //Atualiza quantidade
             double quant = double.Parse(produto.qtd);
             quant++;
             produto.qtd = quant.ToString();
+
             //Atualiza valor
             double vlr = double.Parse(produto.valorTot);
-            vlr *= 2;
+            vlr = double.Parse(produto.valor) * double.Parse(produto.qtd);
             produto.valorTot = vlr.ToString();
+
             //Atualizar valor total tela
             textBox4.Text = vlr.ToString();
+
+
         }
 
         private double AtualizaValorTotalCupom()
         {
+            string query = "select sum(totalItem) as total from ITENSCUPONS where cupomID = @cupomID";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@cupomID", cupomId);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    ValorTotal = double.Parse(reader["total"].ToString());
+                }
+                else
+                {
+                    ValorTotal = 0;
+                }
+
+                reader.Close();
+            }
             return ValorTotal;
         }
 
