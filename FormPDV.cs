@@ -107,7 +107,7 @@ namespace Mercadao
                 }
 
                 numericUpDown2.ReadOnly = false;
-                label4.Text = "<F1> Adiciona <F12> Nova Fita";
+                label4.Text = "<F1> Adiciona <F10> Finalizar Fita";
                 numericUpDown2.Focus();
                 string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
                 string dados = "Cupom fiscal:" + cupomId.ToString() + "\tData/Hora: " + DateTime.Now.ToString();
@@ -127,8 +127,21 @@ namespace Mercadao
                 e.Handled = true;
             }
 
-            // MENU SUPERVISOR
-            if (e.KeyCode == Keys.F8)
+            //FINALIZAR FITA
+            if (e.KeyCode == Keys.F10)
+            {
+                DialogResult result = MessageBox.Show("Tem certeza que deseja finalizar a fita?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    LimpaFita();
+                    label4.Text = "<F1> Adiciona <F12> Nova Fita";
+                }
+            }
+
+
+                // MENU SUPERVISOR
+                if (e.KeyCode == Keys.F8)
             {
                 var form = new FormMenu();
                 form.Show();
@@ -374,6 +387,16 @@ namespace Mercadao
                 reader.Close();
                 return saldo > 0;
             }
+        }
+
+        private void LimpaFita()
+        {
+            textBox1.Clear();
+            textBox4.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
+            numericUpDown2.Value= 0;
+            numericUpDown2.ReadOnly = true;
         }
     }
 }
