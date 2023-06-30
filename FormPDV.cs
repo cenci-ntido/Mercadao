@@ -28,43 +28,7 @@ namespace Mercadao
 
         private void numericUpDown2_Leave(object sender, EventArgs e)
         {
-            int codigo = (int)numericUpDown2.Value;
-
-            if (codigo == 0 && !numericUpDown2.ReadOnly)
-            {
-                MessageBox.Show("O código não pode ser zero!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (codigo > 0)
-            {
-                string query = "SELECT descricao, precoUnit FROM ITENS WHERE Id = " + codigo;
-
-                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
-                {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    connection.Open();
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        textBox6.Text = reader["descricao"].ToString();
-                        textBox5.Text = reader["precoUnit"].ToString();
-                        textBox4.Text = reader["precoUnit"].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Produto não encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        textBox4.Text = "";
-                        textBox5.Text = "";
-                        textBox6.Text = "";
-                        numericUpDown2.Focus();
-                    }
-
-                    reader.Close();
-                }
-
-                numericUpDown2.Focus();
-            }
+            TabProduto();
         }
 
         private void FormPDV_KeyDown(object sender, KeyEventArgs e)
@@ -140,8 +104,8 @@ namespace Mercadao
             }
 
 
-                // MENU SUPERVISOR
-                if (e.KeyCode == Keys.F8)
+            // MENU SUPERVISOR
+            if (e.KeyCode == Keys.F8)
             {
                 var form = new FormMenu();
                 form.Show();
@@ -161,7 +125,8 @@ namespace Mercadao
                 if (!TemSaldo(codigo))
                 {
                     MessageBox.Show("Produto sem estoque na gôndola!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }else if (ValidaProdutoJaExiste(codigo))
+                }
+                else if (ValidaProdutoJaExiste(codigo))
                 {
                     Produto prodExiste = RetornaProdutoExistente(codigo);
                     AtualizaValoresProduto(prodExiste);
@@ -177,18 +142,52 @@ namespace Mercadao
 
                 e.Handled = true;
             }
+
+            // ESTORNAR
+            if (e.KeyCode == Keys.F5)
+            {
+                DialogResult result = MessageBox.Show("Tem certeza que deseja estornar o produto?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    Produto prodAtual = RetornaProdutoExistente(numericUpDown2.Value.ToString());
+                    prodAtual.produto = "Est " + prodAtual.produto;
+                    prodAtual.valorTot = "0";
+                    prodAtual.valor = "0";
+
+                    AtualizarCupom();
+                }
+                e.Handled = true;
+            }
         }
 
-        private void AdicionarProduto(Produto product)
+        private void AdicionarProduto(Produto product, bool estorno)
         {
-            string item = product.cod.PadRight(larguraColunaCodigo) +
-                product.produto.PadRight(larguraColunaProduto) +
-                product.valor.PadRight(larguraColunaValor) +
-                product.qtd.PadRight(larguraColunaQuantidade) +
-                product.valorTot.PadRight(larguraColunaTotalItem) +
-                " +";
+            if (!estorno)
+            {
+                string item = product.cod.PadRight(larguraColunaCodigo) +
+                    product.produto.PadRight(larguraColunaProduto) +
+                    product.valor.PadRight(larguraColunaValor) +
+                    product.qtd.PadRight(larguraColunaQuantidade) +
+                    product.valorTot.PadRight(larguraColunaTotalItem) +
+                    " +";
 
-            textBox1.AppendText(item + Environment.NewLine);
+                textBox1.AppendText(item + Environment.NewLine);
+            }
+            else
+            {
+                string item = product.cod.PadRight(larguraColunaCodigo) + 
+                    product.produto.PadRight(larguraColunaProduto) +
+                    product.valor.PadRight(larguraColunaValor) +
+                    product.qtd.PadRight(larguraColunaQuantidade) +
+                    product.valorTot.PadRight(larguraColunaTotalItem) +
+                    " -";
+
+                textBox1.AppendText(item + Environment.NewLine);
+                AtualizaEstorno();
+            }
+
+            label4.Text = "<F1> Adiciona <F10> Finalizar Fita <F5> Estornar";
 
             string query = "INSERT INTO [dbo].[ITENSCUPONS] ([cupomID], [itemID], [qtde], [precoUnit], [totalItem]) " +
                            "VALUES (@cupomID, @itemID, @qtde, @precoUnit, @totalItem)";
@@ -221,7 +220,7 @@ namespace Mercadao
             textBox1.Clear();
 
             string cupomFiscal = "Supermercado Bom de Preço - CNPJ 00.000.000/0000-00";
-            string dados = "Cupom fiscal:"+cupomId +"\tData/Hora: " + DateTime.Now.ToString();
+            string dados = "Cupom fiscal:" + cupomId + "\tData/Hora: " + DateTime.Now.ToString();
             string cabecalho = "Cód".PadRight(larguraColunaCodigo) +
                                 "Produto".PadRight(larguraColunaProduto) +
                                 "Valor".PadRight(larguraColunaValor) +
@@ -237,7 +236,16 @@ namespace Mercadao
 
             foreach (var product in produtos)
             {
-                AdicionarProduto(product);
+                if (product.produto.Contains("Est "))
+                {
+                    AdicionarProduto(product, true);
+
+                }
+                else
+                {
+                    AdicionarProduto(product, false);
+                }
+
             }
 
             AddTotalCupom();
@@ -249,7 +257,7 @@ namespace Mercadao
             bool existe = false;
             for (int i = 0; i < produtos.Count; i++)
             {
-                if (produtos[i].cod == codigo)
+                if (produtos[i].cod == codigo && !produtos[i].produto.Contains("Est "))
                 {
                     existe = true;
                     index = i;
@@ -342,6 +350,29 @@ namespace Mercadao
             }
             return ValorTotal;
         }
+        private void AtualizaEstorno()
+        {
+            try
+            {
+                string query = "UPDATE ITENSCUPONS SET totalItem = 0 WHERE cupomID = @cupomID AND itemID = @itemID";
+
+                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@cupomID", cupomId);
+                    command.Parameters.AddWithValue("@itemID", numericUpDown2.Value.ToString());
+
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private int Pega_uId_UsuarioLogado(string login)
         {
@@ -395,8 +426,52 @@ namespace Mercadao
             textBox4.Text = "";
             textBox5.Text = "";
             textBox6.Text = "";
-            numericUpDown2.Value= 0;
+            numericUpDown2.Value = 0;
             numericUpDown2.ReadOnly = true;
+            produtos.Clear();
+        }
+
+        private void TabProduto()
+        {
+            int codigo = (int)numericUpDown2.Value;
+
+            if (codigo == 0 && !numericUpDown2.ReadOnly)
+            {
+                MessageBox.Show("O código não pode ser zero!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (codigo > 0)
+            {
+                string query = "SELECT descricao, precoUnit, estoqueGondola FROM ITENS WHERE Id = " + codigo;
+
+                using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        textBox6.Text = reader["descricao"].ToString();
+                        textBox5.Text = reader["precoUnit"].ToString();
+                        textBox4.Text = reader["precoUnit"].ToString();
+                        textBox2.Text = reader["estoqueGondola"].ToString();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Produto não encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBox4.Text = "";
+                        textBox5.Text = "";
+                        textBox6.Text = "";
+                        numericUpDown2.Focus();
+                    }
+
+                    reader.Close();
+                }
+
+                numericUpDown2.Focus();
+            }
         }
     }
 }
