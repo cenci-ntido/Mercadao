@@ -96,7 +96,7 @@ namespace Mercadao
                 string uId = Pega_uId_UsuarioLogado(formLogin.usuario).ToString();
                 string query = "INSERT INTO [dbo].[CUPONS] ([dtEmissao], [valorTotal], [CPF], [uId]) " +
                                "VALUES (GETDATE(), @valorTotal, '', @uId); SELECT SCOPE_IDENTITY()";
-
+                //
                 using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
                 {
                     SqlCommand command = new SqlCommand(query, connection);
@@ -145,7 +145,10 @@ namespace Mercadao
                 string quantidade = qtdProduto.ToString();
                 string totalItem = textBox4.Text;
 
-                if (ValidaProdutoJaExiste(codigo))
+                if (!TemSaldo(codigo))
+                {
+                    MessageBox.Show("Produto sem estoque na gôndola!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }else if (ValidaProdutoJaExiste(codigo))
                 {
                     Produto prodExiste = RetornaProdutoExistente(codigo);
                     AtualizaValoresProduto(prodExiste);
@@ -153,6 +156,7 @@ namespace Mercadao
                 }
                 else
                 {
+
                     Produto product = new Produto(codigo, nome, valor, quantidade, totalItem);
                     produtos.Add(product);
                     AtualizarCupom();
@@ -349,5 +353,27 @@ namespace Mercadao
             }
         }
 
+        private bool TemSaldo(string codigo)
+        {
+            string query = "select estoqueGondola from itens where id=@Id";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", codigo);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                double saldo = 0;
+
+                if (reader.Read())
+                {
+                    saldo = double.Parse(reader["estoqueGondola"].ToString());
+                }
+
+                reader.Close();
+                return saldo > 0;
+            }
+        }
     }
 }

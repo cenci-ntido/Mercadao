@@ -14,3 +14,19 @@ G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormUsuarios.resour
 G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormSobre.resources
 G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.FormProdutos.resources
 G:\Meu Drive\UTF\4-Semestre\PD\2\Mercadao\obj\Debug\Mercadao.Login.resources
+C:\Users\55469\Desktop\Mercadao\bin\Debug\Mercadao.exe.config
+C:\Users\55469\Desktop\Mercadao\bin\Debug\Mercadao.exe
+C:\Users\55469\Desktop\Mercadao\bin\Debug\Mercadao.pdb
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.csproj.AssemblyReference.cache
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.csproj.SuggestedBindingRedirects.cache
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.FormMenu.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.FormPDV.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.FormProdutos.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.FormSobre.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.FormUsuarios.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.Login.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.Properties.Resources.resources
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.csproj.GenerateResource.cache
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.csproj.CoreCompileInputs.cache
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.exe
+C:\Users\55469\Desktop\Mercadao\obj\Debug\Mercadao.pdb
