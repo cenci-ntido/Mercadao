@@ -101,7 +101,7 @@ namespace Mercadao
                 if (result == DialogResult.Yes)
                 {
                     LimpaFita();
-                    label4.Text = "<F1> Adiciona <F12> Nova Fita";
+                    label4.Text = "<F12> Nova Fita";
                 }
             }
 

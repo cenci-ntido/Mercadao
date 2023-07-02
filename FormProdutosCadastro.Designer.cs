@@ -127,9 +127,9 @@
             imagemPathLabel.AutoSize = true;
             imagemPathLabel.Location = new System.Drawing.Point(303, 66);
             imagemPathLabel.Name = "imagemPathLabel";
-            imagemPathLabel.Size = new System.Drawing.Size(71, 13);
+            imagemPathLabel.Size = new System.Drawing.Size(99, 13);
             imagemPathLabel.TabIndex = 13;
-            imagemPathLabel.Text = "imagem Path:";
+            imagemPathLabel.Text = "Imagem do Produto";
             // 
             // mercadoDataSet
             // 
@@ -335,7 +335,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(453, 23);
             this.button1.TabIndex = 15;
-            this.button1.Text = "button1";
+            this.button1.Text = "ANEXAR IMAGEM";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
