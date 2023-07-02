@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -423,9 +425,11 @@ namespace Mercadao
         private void LimpaFita()
         {
             textBox1.Clear();
+            textBox2.Clear();
             textBox4.Text = "";
             textBox5.Text = "";
             textBox6.Text = "";
+            pictureBox1.Image = null;
             numericUpDown2.Value = 0;
             numericUpDown2.ReadOnly = true;
             produtos.Clear();
@@ -441,7 +445,7 @@ namespace Mercadao
             }
             else if (codigo > 0)
             {
-                string query = "SELECT descricao, precoUnit, estoqueGondola FROM ITENS WHERE Id = " + codigo;
+                string query = "SELECT descricao, precoUnit, estoqueGondola, imagemPath FROM ITENS WHERE Id = " + codigo;
 
                 using (SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=Mercado;Integrated Security=True;Pooling=False"))
                 {
@@ -456,6 +460,12 @@ namespace Mercadao
                         textBox5.Text = reader["precoUnit"].ToString();
                         textBox4.Text = reader["precoUnit"].ToString();
                         textBox2.Text = reader["estoqueGondola"].ToString();
+                        byte[] imageData = (byte[])reader["imagemPath"]; // Obtém os dados da imagem do leitor de dados
+
+                        using (MemoryStream stream = new MemoryStream(imageData))
+                        {
+                            pictureBox1.Image = Image.FromStream(stream); // Carrega a imagem a partir do fluxo e atribui à PictureBox
+                        }
 
                     }
                     else

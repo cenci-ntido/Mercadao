@@ -951,7 +951,6 @@ namespace Mercadao {
                 this.columnprecoUnit.AllowDBNull = false;
                 this.columnestoqueInterno.AllowDBNull = false;
                 this.columnestoqueGondola.AllowDBNull = false;
-                this.columnimagemPath.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1904,11 +1903,28 @@ namespace Mercadao {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public byte[] imagemPath {
                 get {
-                    return ((byte[])(this[this.tableITENS.imagemPathColumn]));
+                    try {
+                        return ((byte[])(this[this.tableITENS.imagemPathColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'imagemPath\' in table \'ITENS\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableITENS.imagemPathColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsimagemPathNull() {
+                return this.IsNull(this.tableITENS.imagemPathColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetimagemPathNull() {
+                this[this.tableITENS.imagemPathColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2713,7 +2729,7 @@ SELECT Id, dtEmissao, valorTotal, CPF, uId FROM CUPONS WHERE (Id = @Id)";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[ITENS] WHERE (([Id] = @Original_Id) AND ([descricao] = @Original_descricao) AND ([unidade] = @Original_unidade) AND ([precoUnit] = @Original_precoUnit) AND ([estoqueInterno] = @Original_estoqueInterno) AND ([estoqueGondola] = @Original_estoqueGondola) AND ([imagemPath] = @Original_imagemPath))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[ITENS] WHERE (([Id] = @Original_Id) AND ([descricao] = @Original_descricao) AND ([unidade] = @Original_unidade) AND ([precoUnit] = @Original_precoUnit) AND ([estoqueInterno] = @Original_estoqueInterno) AND ([estoqueGondola] = @Original_estoqueGondola))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_descricao", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "descricao", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -2721,7 +2737,6 @@ SELECT Id, dtEmissao, valorTotal, CPF, uId FROM CUPONS WHERE (Id = @Id)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_precoUnit", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "precoUnit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_estoqueInterno", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueInterno", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_estoqueGondola", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueGondola", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_imagemPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[ITENS] ([descricao], [unidade], [precoUnit], [estoqueInterno], [estoqueGondola], [imagemPath]) VALUES (@descricao, @unidade, @precoUnit, @estoqueInterno, @estoqueGondola, @imagemPath);
@@ -2732,10 +2747,10 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@precoUnit", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "precoUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estoqueInterno", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueInterno", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estoqueGondola", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueGondola", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imagemPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imagemPath", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[ITENS] SET [descricao] = @descricao, [unidade] = @unidade, [precoUnit] = @precoUnit, [estoqueInterno] = @estoqueInterno, [estoqueGondola] = @estoqueGondola, [imagemPath] = @imagemPath WHERE (([Id] = @Original_Id) AND ([descricao] = @Original_descricao) AND ([unidade] = @Original_unidade) AND ([precoUnit] = @Original_precoUnit) AND ([estoqueInterno] = @Original_estoqueInterno) AND ([estoqueGondola] = @Original_estoqueGondola) AND ([imagemPath] = @Original_imagemPath));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[ITENS] SET [descricao] = @descricao, [unidade] = @unidade, [precoUnit] = @precoUnit, [estoqueInterno] = @estoqueInterno, [estoqueGondola] = @estoqueGondola, [imagemPath] = @imagemPath WHERE (([Id] = @Original_Id) AND ([descricao] = @Original_descricao) AND ([unidade] = @Original_unidade) AND ([precoUnit] = @Original_precoUnit) AND ([estoqueInterno] = @Original_estoqueInterno) AND ([estoqueGondola] = @Original_estoqueGondola));
 SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagemPath FROM ITENS WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@descricao", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "descricao", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -2743,14 +2758,13 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@precoUnit", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "precoUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estoqueInterno", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueInterno", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estoqueGondola", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueGondola", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imagemPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imagemPath", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_descricao", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "descricao", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_unidade", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "unidade", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_precoUnit", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "precoUnit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_estoqueInterno", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueInterno", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_estoqueGondola", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "estoqueGondola", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_imagemPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imagemPath", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -2829,7 +2843,7 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola, string Original_imagemPath) {
+        public virtual int Delete(int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_descricao == null)) {
                 throw new global::System.ArgumentNullException("Original_descricao");
@@ -2846,12 +2860,6 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this.Adapter.DeleteCommand.Parameters[3].Value = ((decimal)(Original_precoUnit));
             this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_estoqueInterno));
             this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_estoqueGondola));
-            if ((Original_imagemPath == null)) {
-                throw new global::System.ArgumentNullException("Original_imagemPath");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_imagemPath));
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2872,7 +2880,7 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, string imagemPath) {
+        public virtual int Insert(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, byte[] imagemPath) {
             if ((descricao == null)) {
                 throw new global::System.ArgumentNullException("descricao");
             }
@@ -2889,10 +2897,10 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(estoqueInterno));
             this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(estoqueGondola));
             if ((imagemPath == null)) {
-                throw new global::System.ArgumentNullException("imagemPath");
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(imagemPath));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((byte[])(imagemPath));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -2914,7 +2922,7 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, string imagemPath, int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola, string Original_imagemPath, int Id) {
+        public virtual int Update(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, byte[] imagemPath, int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola, int Id) {
             if ((descricao == null)) {
                 throw new global::System.ArgumentNullException("descricao");
             }
@@ -2931,10 +2939,10 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(estoqueInterno));
             this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(estoqueGondola));
             if ((imagemPath == null)) {
-                throw new global::System.ArgumentNullException("imagemPath");
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(imagemPath));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((byte[])(imagemPath));
             }
             this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
             if ((Original_descricao == null)) {
@@ -2952,13 +2960,7 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
             this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(Original_precoUnit));
             this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_estoqueInterno));
             this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_estoqueGondola));
-            if ((Original_imagemPath == null)) {
-                throw new global::System.ArgumentNullException("Original_imagemPath");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_imagemPath));
-            }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2979,8 +2981,8 @@ SELECT Id, descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagem
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, string imagemPath, int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola, string Original_imagemPath) {
-            return this.Update(descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagemPath, Original_Id, Original_descricao, Original_unidade, Original_precoUnit, Original_estoqueInterno, Original_estoqueGondola, Original_imagemPath, Original_Id);
+        public virtual int Update(string descricao, string unidade, decimal precoUnit, decimal estoqueInterno, decimal estoqueGondola, byte[] imagemPath, int Original_Id, string Original_descricao, string Original_unidade, decimal Original_precoUnit, decimal Original_estoqueInterno, decimal Original_estoqueGondola) {
+            return this.Update(descricao, unidade, precoUnit, estoqueInterno, estoqueGondola, imagemPath, Original_Id, Original_descricao, Original_unidade, Original_precoUnit, Original_estoqueInterno, Original_estoqueGondola, Original_Id);
         }
     }
     

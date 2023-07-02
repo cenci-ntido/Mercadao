@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label idLabel;
             System.Windows.Forms.Label descricaoLabel;
             System.Windows.Forms.Label unidadeLabel;
             System.Windows.Forms.Label precoUnitLabel;
@@ -37,6 +36,7 @@
             System.Windows.Forms.Label estoqueGondolaLabel;
             System.Windows.Forms.Label imagemPathLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProdutosCadastro));
+            System.Windows.Forms.Label idLabel;
             this.mercadoDataSet = new Mercadao.MercadoDataSet();
             this.iTENSBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iTENSTableAdapter = new Mercadao.MercadoDataSetTableAdapters.ITENSTableAdapter();
@@ -54,7 +54,6 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.iTENSBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.idNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.unidadeTextBox = new System.Windows.Forms.TextBox();
             this.precoUnitMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
@@ -62,29 +61,21 @@
             this.estoqueGondolaMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.imagemPathPictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
-            idLabel = new System.Windows.Forms.Label();
+            this.idNumericUpDown = new System.Windows.Forms.NumericUpDown();
             descricaoLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
             precoUnitLabel = new System.Windows.Forms.Label();
             estoqueInternoLabel = new System.Windows.Forms.Label();
             estoqueGondolaLabel = new System.Windows.Forms.Label();
             imagemPathLabel = new System.Windows.Forms.Label();
+            idLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mercadoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingNavigator)).BeginInit();
             this.iTENSBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.idNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagemPathPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.idNumericUpDown)).BeginInit();
             this.SuspendLayout();
-            // 
-            // idLabel
-            // 
-            idLabel.AutoSize = true;
-            idLabel.Location = new System.Drawing.Point(46, 66);
-            idLabel.Name = "idLabel";
-            idLabel.Size = new System.Drawing.Size(19, 13);
-            idLabel.TabIndex = 1;
-            idLabel.Text = "Id:";
             // 
             // descricaoLabel
             // 
@@ -288,14 +279,6 @@
             this.iTENSBindingNavigatorSaveItem.Text = "Save Data";
             this.iTENSBindingNavigatorSaveItem.Click += new System.EventHandler(this.iTENSBindingNavigatorSaveItem_Click);
             // 
-            // idNumericUpDown
-            // 
-            this.idNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.iTENSBindingSource, "Id", true));
-            this.idNumericUpDown.Location = new System.Drawing.Point(143, 66);
-            this.idNumericUpDown.Name = "idNumericUpDown";
-            this.idNumericUpDown.Size = new System.Drawing.Size(120, 20);
-            this.idNumericUpDown.TabIndex = 2;
-            // 
             // descricaoTextBox
             // 
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.iTENSBindingSource, "descricao", true));
@@ -356,6 +339,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // idLabel
+            // 
+            idLabel.AutoSize = true;
+            idLabel.Location = new System.Drawing.Point(46, 66);
+            idLabel.Name = "idLabel";
+            idLabel.Size = new System.Drawing.Size(19, 13);
+            idLabel.TabIndex = 1;
+            idLabel.Text = "Id:";
+            // 
+            // idNumericUpDown
+            // 
+            this.idNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.iTENSBindingSource, "Id", true));
+            this.idNumericUpDown.Enabled = false;
+            this.idNumericUpDown.Location = new System.Drawing.Point(143, 66);
+            this.idNumericUpDown.Name = "idNumericUpDown";
+            this.idNumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.idNumericUpDown.TabIndex = 2;
+            // 
             // FormProdutosCadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -385,8 +386,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingNavigator)).EndInit();
             this.iTENSBindingNavigator.ResumeLayout(false);
             this.iTENSBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.idNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagemPathPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.idNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,7 +412,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton iTENSBindingNavigatorSaveItem;
-        private System.Windows.Forms.NumericUpDown idNumericUpDown;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.TextBox unidadeTextBox;
         private System.Windows.Forms.MaskedTextBox precoUnitMaskedTextBox;
@@ -419,5 +419,6 @@
         private System.Windows.Forms.MaskedTextBox estoqueGondolaMaskedTextBox;
         private System.Windows.Forms.PictureBox imagemPathPictureBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NumericUpDown idNumericUpDown;
     }
 }
