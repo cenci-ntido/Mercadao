@@ -31,23 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProdutos));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.mercadoDataSet = new Mercadao.MercadoDataSet();
-            this.iTENSBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iTENSTableAdapter = new Mercadao.MercadoDataSetTableAdapters.ITENSTableAdapter();
-            this.tableAdapterManager = new Mercadao.MercadoDataSetTableAdapters.TableAdapterManager();
-            this.iTENSBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.iTENSBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.iTENSBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.iTENSDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,91 +48,17 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.mercadoDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingSource)).BeginInit();
+            this.iTENSBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mercadoDataSet = new Mercadao.MercadoDataSet();
+            this.iTENSTableAdapter = new Mercadao.MercadoDataSetTableAdapters.ITENSTableAdapter();
+            this.tableAdapterManager = new Mercadao.MercadoDataSetTableAdapters.TableAdapterManager();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingNavigator)).BeginInit();
             this.iTENSBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mercadoDataSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // mercadoDataSet
-            // 
-            this.mercadoDataSet.DataSetName = "MercadoDataSet";
-            this.mercadoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // iTENSBindingSource
-            // 
-            this.iTENSBindingSource.DataMember = "ITENS";
-            this.iTENSBindingSource.DataSource = this.mercadoDataSet;
-            // 
-            // iTENSTableAdapter
-            // 
-            this.iTENSTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CUPONSTableAdapter = null;
-            this.tableAdapterManager.ITENSCUPONSTableAdapter = null;
-            this.tableAdapterManager.ITENSTableAdapter = this.iTENSTableAdapter;
-            this.tableAdapterManager.UpdateOrder = Mercadao.MercadoDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager.USUARIOSTableAdapter = null;
-            // 
-            // iTENSBindingNavigator
-            // 
-            this.iTENSBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
-            this.iTENSBindingNavigator.BindingSource = this.iTENSBindingSource;
-            this.iTENSBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.iTENSBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
-            this.iTENSBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem,
-            this.iTENSBindingNavigatorSaveItem});
-            this.iTENSBindingNavigator.Location = new System.Drawing.Point(0, 0);
-            this.iTENSBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.iTENSBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.iTENSBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.iTENSBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.iTENSBindingNavigator.Name = "iTENSBindingNavigator";
-            this.iTENSBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.iTENSBindingNavigator.Size = new System.Drawing.Size(800, 25);
-            this.iTENSBindingNavigator.TabIndex = 0;
-            this.iTENSBindingNavigator.Text = "bindingNavigator1";
-            // 
-            // bindingNavigatorAddNewItem
-            // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem.Text = "Adicionar novo";
-            // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 22);
-            this.bindingNavigatorCountItem.Text = "de {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Número total de itens";
-            // 
-            // bindingNavigatorDeleteItem
-            // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorDeleteItem.Text = "Excluir";
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -174,6 +93,13 @@
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Posição atual";
             // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Número total de itens";
+            // 
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
@@ -202,14 +128,33 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // iTENSBindingNavigatorSaveItem
+            // iTENSBindingNavigator
             // 
-            this.iTENSBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.iTENSBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("iTENSBindingNavigatorSaveItem.Image")));
-            this.iTENSBindingNavigatorSaveItem.Name = "iTENSBindingNavigatorSaveItem";
-            this.iTENSBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
-            this.iTENSBindingNavigatorSaveItem.Text = "Salvar Dados";
-            this.iTENSBindingNavigatorSaveItem.Click += new System.EventHandler(this.iTENSBindingNavigatorSaveItem_Click);
+            this.iTENSBindingNavigator.AddNewItem = null;
+            this.iTENSBindingNavigator.BindingSource = this.iTENSBindingSource;
+            this.iTENSBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.iTENSBindingNavigator.DeleteItem = null;
+            this.iTENSBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorSeparator2,
+            this.toolStripButton1});
+            this.iTENSBindingNavigator.Location = new System.Drawing.Point(0, 0);
+            this.iTENSBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.iTENSBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.iTENSBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.iTENSBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.iTENSBindingNavigator.Name = "iTENSBindingNavigator";
+            this.iTENSBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.iTENSBindingNavigator.Size = new System.Drawing.Size(800, 25);
+            this.iTENSBindingNavigator.TabIndex = 0;
+            this.iTENSBindingNavigator.Text = "bindingNavigator1";
             // 
             // iTENSDataGridView
             // 
@@ -224,8 +169,7 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
+            this.dataGridViewTextBoxColumn6});
             this.iTENSDataGridView.DataSource = this.iTENSBindingSource;
             this.iTENSDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.iTENSDataGridView.Location = new System.Drawing.Point(0, 25);
@@ -276,12 +220,38 @@
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.Width = 110;
             // 
-            // dataGridViewTextBoxColumn7
+            // iTENSBindingSource
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "imagemPath";
-            this.dataGridViewTextBoxColumn7.HeaderText = "imagemPath";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.Width = 90;
+            this.iTENSBindingSource.DataMember = "ITENS";
+            this.iTENSBindingSource.DataSource = this.mercadoDataSet;
+            // 
+            // mercadoDataSet
+            // 
+            this.mercadoDataSet.DataSetName = "MercadoDataSet";
+            this.mercadoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // iTENSTableAdapter
+            // 
+            this.iTENSTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CUPONSTableAdapter = null;
+            this.tableAdapterManager.ITENSCUPONSTableAdapter = null;
+            this.tableAdapterManager.ITENSTableAdapter = this.iTENSTableAdapter;
+            this.tableAdapterManager.UpdateOrder = Mercadao.MercadoDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.USUARIOSTableAdapter = null;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FormProdutos
             // 
@@ -294,12 +264,12 @@
             this.Text = "Produtos";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormProdutos_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.mercadoDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingNavigator)).EndInit();
             this.iTENSBindingNavigator.ResumeLayout(false);
             this.iTENSBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iTENSDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iTENSBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mercadoDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,19 +281,16 @@
         private System.Windows.Forms.BindingSource iTENSBindingSource;
         private MercadoDataSetTableAdapters.ITENSTableAdapter iTENSTableAdapter;
         private MercadoDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingNavigator iTENSBindingNavigator;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
-        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
         private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
+        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.ToolStripButton iTENSBindingNavigatorSaveItem;
+        private System.Windows.Forms.BindingNavigator iTENSBindingNavigator;
         private System.Windows.Forms.DataGridView iTENSDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -331,6 +298,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

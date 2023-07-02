@@ -16,7 +16,7 @@ namespace Mercadao
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormPDV());
+            Application.Run(new FormProdutos());
         }
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Mercadao
 {
-    public partial class FormProdutos : Form
+    public partial class FormProdutosCadastro : Form
     {
-        public FormProdutos()
+        public FormProdutosCadastro()
         {
             InitializeComponent();
         }
@@ -25,16 +25,11 @@ namespace Mercadao
 
         }
 
-        private void FormProdutos_Load(object sender, EventArgs e)
+        private void FormProdutosCadastro_Load(object sender, EventArgs e)
         {
-            // TODO: esta linha de código carrega dados na tabela 'mercadoDataSet.ITENS'. Você pode movê-la ou removê-la conforme necessário.
+            // TODO: This line of code loads data into the 'mercadoDataSet.ITENS' table. You can move, or remove it, as needed.
             this.iTENSTableAdapter.Fill(this.mercadoDataSet.ITENS);
 
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            new FormProdutosCadastro().Show();
         }
     }
 }
