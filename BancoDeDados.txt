@@ -1,0 +1,51 @@
+Mercado.dbo
+
+
+----------------------------------
+
+CREATE TABLE [dbo].[CUPONS] (
+    [Id]         INT          IDENTITY (1, 1) NOT NULL,
+    [dtEmissao]  DATE         NOT NULL,
+    [valorTotal] MONEY        NOT NULL,
+    [CPF]        VARCHAR (14) NOT NULL,
+    [uId]        INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_CUPONS_USUARIOS] FOREIGN KEY ([uId]) REFERENCES [dbo].[USUARIOS] ([UId])
+);
+
+----------------------------------
+
+CREATE TABLE [dbo].[ITENS] (
+    [Id]             INT          IDENTITY (1, 1) NOT NULL,
+    [descricao]      VARCHAR (50) NOT NULL,
+    [unidade]        VARCHAR (2)  NOT NULL,
+    [precoUnit]      MONEY        NOT NULL,
+    [estoqueInterno] NUMERIC (18) NOT NULL,
+    [estoqueGondola] NUMERIC (18) NOT NULL,
+    [imagemPath]     IMAGE        NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+-----------------------------------
+
+CREATE TABLE [dbo].[ITENSCUPONS] (
+    [Sequencial] INT          IDENTITY (1, 1) NOT NULL,
+    [cupomID]    INT          NOT NULL,
+    [itemID]     INT          NOT NULL,
+    [qtde]       NUMERIC (18) NOT NULL,
+    [precoUnit]  MONEY        NOT NULL,
+    [totalItem]  MONEY        NOT NULL,
+    PRIMARY KEY CLUSTERED ([Sequencial] ASC),
+    CONSTRAINT [FK_CUPONS_ITENSCUPONS] FOREIGN KEY ([itemID]) REFERENCES [dbo].[CUPONS] ([Id]),
+    CONSTRAINT [FK_CUPONS_ITENS] FOREIGN KEY ([itemID]) REFERENCES [dbo].[ITENS] ([Id])
+);
+
+--------------------------------------
+
+CREATE TABLE [dbo].[USUARIOS] (
+    [UId]   INT           IDENTITY (1, 1) NOT NULL,
+    [nome]  VARCHAR (50)  NOT NULL,
+    [login] VARCHAR (300) NOT NULL,
+    [senha] VARCHAR (50)  NOT NULL,
+    PRIMARY KEY CLUSTERED ([UId] ASC)
+);
